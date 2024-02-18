@@ -15,13 +15,31 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Client class for interacting with the GitHub API to fetch repository and branch information.
+ */
 @Component
 public class GitHubClient {
+    /**
+     * The base URL for retrieving user repositories from the GitHub API.
+     */
     private static final String REPOS_URL = "https://api.github.com/users";
-    public static final String BRANCHES_URL = "https://api.github.com/repos";
+
+    /**
+     * The base URL for retrieving branches from repositories in the GitHub API.
+     */
+    private static final String BRANCHES_URL = "https://api.github.com/repos";
+
+    /**
+     * The RestTemplate used for making HTTP requests to the GitHub API.
+     */
     private final RestTemplate restTemplate = new RestTemplate();
 
-
+    /**
+     * Retrieves information about repositories owned by a user from the GitHub API.
+     * @param username The username of the GitHub user.
+     * @return A list of RepoModel objects representing the user's repositories.
+     */
     public List<RepoModel> getUserRepositoriesInfo(String username) {
         List<RepoModel> result = new ArrayList<>();
         var repos = getUserRepositories(username);
@@ -47,6 +65,12 @@ public class GitHubClient {
         return result;
     }
 
+    /**
+     * Retrieves information about repositories owned by a user from the GitHub API.
+     * @param username The username of the GitHub user.
+     * @return A list of RepoDto objects representing the user's repositories.
+     * @throws HttpClientErrorException If an HTTP error occurs during the request.
+     */
     public List<RepoDto> getUserRepositories(String username) throws HttpClientErrorException {
         String url = REPOS_URL + "/" + username + "/repos";
         ResponseEntity<List<RepoDto>> responseEntity = restTemplate.exchange(
@@ -64,6 +88,12 @@ public class GitHubClient {
         return repos;
     }
 
+    /**
+     * Retrieves information about branches in a repository from the GitHub API.
+     * @param username The username of the owner of the repository.
+     * @param repository The name of the repository.
+     * @return A list of BranchDto objects representing the branches in the repository.
+     */
     public List<BranchDto> getBranchesForRepository(String username, String repository) {
         String url = BRANCHES_URL + "/" + username + "/" + repository + "/branches";
         ResponseEntity<List<BranchDto>> responseEntity = restTemplate.exchange(

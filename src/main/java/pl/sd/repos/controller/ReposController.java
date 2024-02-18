@@ -12,11 +12,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controller class for handling requests related to repositories.
+ */
 @RestController
 @RequiredArgsConstructor
 public class ReposController {
+    /**
+     * Service for retrieving information about GitHub repositories.
+     */
     private final ReposService reposService;
 
+    /**
+     * Endpoint to retrieve information about repositories owned by a user.
+     * @param name The username of the owner of the repositories.
+     * @return ResponseEntity containing a list of RepoModel objects or a status code with an error message if the user is not found.
+     */
     @GetMapping("/repos")
     public ResponseEntity<?> getReposInfo(@RequestParam String name) {
         try {
