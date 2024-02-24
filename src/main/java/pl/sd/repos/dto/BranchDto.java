@@ -5,15 +5,5 @@ import lombok.Getter;
 /**
  * Data Transfer Object (DTO) representing a branch in a Git repository.
  */
-@Getter
-public class BranchDto {
-    /**
-     * The name of the branch.
-     */
-    private String name;
+public record BranchDto (String name, BranchCommitDto commit){}
 
-    /**
-     * Information about the last commit on the branch.
-     */
-    private BranchCommitDto commit;
-}

@@ -8,21 +8,19 @@ import java.util.List;
 /**
  * Represents a GitHub repository.
  */
-@Getter
-@Builder
-public class RepoModel {
+public record RepoModel (
     /**
      * The name of the repository.
      */
-    private String name;
+    String name,
 
     /**
      * The login of the owner of the repository.
      */
-    private String ownerLogin;
+    String ownerLogin,
 
     /**
      * The list of branches in the repository.
      */
-    private List<BranchModel> branches;
-}
+    List<BranchModel> branches
+) {};

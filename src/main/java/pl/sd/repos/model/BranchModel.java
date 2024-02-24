@@ -6,16 +6,14 @@ import lombok.Getter;
 /**
  * Represents a branch in a Git repository.
  */
-@Getter
-@Builder
-public class BranchModel {
+public record BranchModel (
     /**
      * The name of the branch.
      */
-    public String name;
+    String name,
 
     /**
      * The SHA of last commit in the branch.
      */
-    public String sha;
-}
+    String sha
+) {}
